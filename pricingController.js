@@ -1,4 +1,3 @@
-const { data } = require("autoprefixer");
 const PRICING = require("./pricingSchema");
 
 const postEmail = async (req, res) => {
