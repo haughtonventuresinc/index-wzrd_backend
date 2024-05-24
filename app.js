@@ -1,18 +1,10 @@
 const express = require("express");
-const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
 const pricingRoute = require("./pricingRoute");
 const app = express();
 const port = process.env.PORT || 3001;
-
-// Configure CORS
-app.use(cors({
-    origin: 'https://wzrd-omega.vercel.app', // Replace with your front-end URL
-    methods: 'GET,POST,PUT,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type, Authorization'
-}));
 
 app.use(express.json());
 
