@@ -7,7 +7,13 @@ const pricingRoute = require("./pricingRoute");
 const app = express();
 const port = process.env.PORT || 3001;
 
-// app.use(cors());
+// Configure CORS
+app.use(cors({
+    origin: 'https://wzrd-omega.vercel.app', // Replace with your front-end URL
+    methods: 'GET,POST,PUT,DELETE,OPTIONS',
+    allowedHeaders: 'Content-Type, Authorization'
+}));
+
 app.use(express.json());
 
 mongoose
