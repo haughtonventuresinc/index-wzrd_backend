@@ -1,5 +1,5 @@
 const express = require("express");
-const cors = require("cors");
+// const cors = require("cors");
 const mongoose = require("mongoose");
 require("dotenv").config();
 
@@ -7,7 +7,7 @@ const pricingRoute = require("./pricingRoute");
 const app = express();
 const port = process.env.PORT || 3001;
 
-app.use(cors());
+// app.use(cors());
 app.use(express.json());
 
 mongoose
