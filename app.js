@@ -19,7 +19,7 @@ app.get("/", (req, res) => {
   res.json("Hello Server");
 });
 
-app.use("/api/v1/pricing", pricingRoute);
+app.use("/api/v1/pricing/save", pricingRoute);
 
 app.listen(port, () => {
   console.log(`server is listening on port ${port}`);
