@@ -11,7 +11,7 @@ const port = process.env.PORT || 3001;
 
 // Configure CORS
 const corsOptions = {
-  origin: ["https://www.indexwizard.xyz", "https://indexwizard.xyz", "http://localhost:3000", "http://localhost:3001", "http://localhost:3002"], // Allow specific origins
+  origin: ["https://www.indexwizard.xyz", "https://indexwizard.xyz", "http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "https://wzrd-nine.vercel.app"], // Allow specific origins
   methods: "GET,POST,PUT,DELETE,OPTIONS",
   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization",
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
