@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 require("dotenv").config();
 
 const pricingRoute = require("./pricingRoute");
+const userRoute = require("./userRoute");
 const app = express();
 const port = process.env.PORT || 3001;
 
@@ -28,6 +29,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/v1/pricing", pricingRoute);
+app.use("/api/v1/users", userRoute);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
