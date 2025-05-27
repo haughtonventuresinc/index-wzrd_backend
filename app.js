@@ -24,6 +24,22 @@ app.use(express.json());
 // Add OPTIONS pre-flight handler for CORS
 app.options('*', cors(corsOptions));
 
+// Add explicit CORS headers for all responses
+app.use((req, res, next) => {
+  // Allow requests from any origin
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept, Authorization');
+  res.header('Access-Control-Allow-Credentials', 'true');
+  
+  // Handle preflight requests
+  if (req.method === 'OPTIONS') {
+    return res.status(204).end();
+  }
+  
+  next();
+});
+
 // Improved MongoDB connection with retry logic and better error handling
 const connectWithRetry = async () => {
   const mongoOptions = {
