@@ -5,12 +5,13 @@ require("dotenv").config();
 
 const pricingRoute = require("./pricingRoute");
 const userRoute = require("./userRoute");
+const algoRoute = require("./algoRoute");
 const app = express();
 const port = process.env.PORT || 3001;
 
 // Configure CORS
 const corsOptions = {
-  origin: ["https://www.indexwizard.xyz", "https://indexwizard.xyz", "http://localhost:3000"], // Allow specific origins
+  origin: ["https://www.indexwizard.xyz", "https://indexwizard.xyz", "http://localhost:3000", "http://localhost:3001", "http://localhost:3002"], // Allow specific origins
   methods: "GET,POST,PUT,DELETE,OPTIONS",
   allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization",
   credentials: true, // Allow credentials (cookies, authorization headers, etc.)
@@ -60,6 +61,7 @@ app.get("/", (req, res) => {
 
 app.use("/api/v1/pricing", pricingRoute);
 app.use("/api/v1/users", userRoute);
+app.use("/api/v1/algos", algoRoute);
 
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
