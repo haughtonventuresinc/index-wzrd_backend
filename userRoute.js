@@ -1,11 +1,18 @@
 const express = require("express");
-const { checkUser, createUser } = require("./userController");
-const route = express.Router();
+const router = express.Router();
+const { 
+  checkUser, 
+  signup, 
+  login, 
+  forgotPassword, 
+  resetPassword 
+} = require("./userController");
 
-// Check if a user exists
-route.post("/check", checkUser);
+// User authentication routes
+router.post("/check", checkUser);
+router.post("/signup", signup);
+router.post("/login", login);
+router.post("/forgot-password", forgotPassword);
+router.post("/reset-password", resetPassword);
 
-// Create a new user
-route.post("/create", createUser);
-
-module.exports = route;
+module.exports = router;
