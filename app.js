@@ -19,10 +19,36 @@ const corsOptions = {
 app.use(cors(corsOptions));
 app.use(express.json());
 
-mongoose
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.log("ERROR: DB not connected"));
+// Improved MongoDB connection with retry logic and better error handling
+const connectWithRetry = async () => {
+  const mongoOptions = {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    serverSelectionTimeoutMS: 30000,
+    socketTimeoutMS: 45000,
+    connectTimeoutMS: 30000,
+    family: 4 // Force IPv4
+  };
+  
+  console.log('Attempting to connect to MongoDB...');
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, mongoOptions);
+    console.log('Successfully connected to MongoDB');
+  } catch (err) {
+    console.error('Failed to connect to MongoDB on first attempt:', err.message);
+    // Log the MongoDB URI (without sensitive parts)
+    const sanitizedUri = process.env.MONGODB_URI ? 
+      process.env.MONGODB_URI.replace(/:\/\/([^:]+):([^@]+)@/, '://*****:*****@') : 
+      'undefined';
+    console.log(`MongoDB URI format: ${sanitizedUri}`);
+    
+    // Try again after a delay
+    setTimeout(connectWithRetry, 5000);
+  }
+};
+
+// Initial connection
+connectWithRetry();
 
 app.get("/", (req, res) => {
   res.json("Hello Server");
