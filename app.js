@@ -10,14 +10,18 @@ const port = process.env.PORT || 3001;
 
 // Configure CORS
 const corsOptions = {
-  origin: "*", // Adjust this to specify the allowed origin(s)
+  origin: ["https://www.indexwizard.xyz", "https://indexwizard.xyz", "http://localhost:3000"], // Allow specific origins
   methods: "GET,POST,PUT,DELETE,OPTIONS",
-  allowedHeaders:
-    "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Authorization",
+  credentials: true, // Allow credentials (cookies, authorization headers, etc.)
+  optionsSuccessStatus: 204 // Some legacy browsers choke on 204
 };
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// Add OPTIONS pre-flight handler for CORS
+app.options('*', cors(corsOptions));
 
 // Improved MongoDB connection with retry logic and better error handling
 const connectWithRetry = async () => {
